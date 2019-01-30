@@ -15,9 +15,9 @@ export class MapaComponent implements OnInit {
 
   constructor() {
 
-    const nuevoMarcador = new Marcador(51.678418,7.809007);
-
-    this.marcadores.push( nuevoMarcador );
+    if(localStorage.getItem('marcadores')){
+      this.marcadores = JSON.parse( localStorage.getItem('marcadores'));
+    }
 
    }
 
@@ -27,6 +27,12 @@ export class MapaComponent implements OnInit {
   agregarMarcador( evento ){
     const nuevoMarcador = new Marcador(evento.coords.lat,evento.coords.lng);
     this.marcadores.push( nuevoMarcador );
+
+    this.guardarStorage();
+  }
+
+  guardarStorage(){
+    localStorage.setItem('marcadores', JSON.stringify( this.marcadores ));
   }
 
 }
